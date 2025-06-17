@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login</title>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <title>Iniciar Sesión</title>
+  <meta charset="UTF-8">
 </head>
 <body>
   <h2>Iniciar Sesión</h2>
@@ -12,28 +11,35 @@
   <button onclick="login()">Entrar</button>
   <p id="msg"></p>
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+
   <script>
-    // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+    const firebaseConfig = {
+      apiKey: "AIzaSyAQCDk9MT4dLvQXvj3Z3a7saFJbQSvXuHk",
+      authDomain: "new-login-1-4b160.firebaseapp.com",
+      projectId: "new-login-1-4b160",
+      storageBucket: "new-login-1-4b160.firebasestorage.app",
+      messagingSenderId: "1099052454500",
+      appId: "1:1099052454500:web:7c8565d2477373db9d0571"
+    };
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAQCDk9MT4dLvQXvj3Z3a7saFJbQSvXuHk",
-  authDomain: "new-login-1-4b160.firebaseapp.com",
-  projectId: "new-login-1-4b160",
-  storageBucket: "new-login-1-4b160.firebasestorage.app",
-  messagingSenderId: "1099052454500",
-  appId: "1:1099052454500:web:7c8565d2477373db9d0571",
-  measurementId: "G-Q4N1Y3L84K"
-};
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+    function login() {
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+
+      auth.signInWithEmailAndPassword(email, pass)
+        .then(() => {
+          document.getElementById("msg").innerText = "¡Bienvenido!";
+        })
+        .catch(err => {
+          document.getElementById("msg").innerText = "Error: " + err.message;
+        });
+    }
   </script>
 </body>
 </html>
